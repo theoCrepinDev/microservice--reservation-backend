@@ -1,4 +1,4 @@
-package fr.crepin.microserviceuserbackend.config;
+package fr.crepin.microservicereservationbackend.config;
 
 
 import jakarta.servlet.FilterChain;

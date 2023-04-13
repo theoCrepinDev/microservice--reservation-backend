@@ -1,7 +1,7 @@
-package fr.crepin.microserviceuserbackend.config;
+package fr.crepin.microservicereservationbackend.config;
 
-import fr.crepin.microserviceuserbackend.dao.entity.UserData;
-import fr.crepin.microserviceuserbackend.dao.repository.UserDataRepository;
+import fr.crepin.microservicereservationbackend.dao.entity.UserData;
+import fr.crepin.microservicereservationbackend.dao.repository.UserDataRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

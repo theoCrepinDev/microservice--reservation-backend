@@ -1,4 +1,4 @@
-package fr.crepin.microserviceuserbackend.controller;
+package fr.crepin.microservicereservationbackend.controller;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;

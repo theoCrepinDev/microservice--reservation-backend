@@ -1,4 +1,4 @@
-package fr.crepin.microserviceuserbackend.config;
+package fr.crepin.microservicereservationbackend.config;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

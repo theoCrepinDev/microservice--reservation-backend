@@ -1,4 +1,4 @@
-package fr.crepin.microserviceuserbackend.dao.entity;
+package fr.crepin.microservicereservationbackend.dao.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

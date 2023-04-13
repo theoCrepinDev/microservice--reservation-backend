@@ -1,4 +1,4 @@
-package fr.crepin.microserviceuserbackend.config;
+package fr.crepin.microservicereservationbackend.config;
 
 import io.jsonwebtoken.Claims;
 import org.springframework.security.core.userdetails.UserDetails;

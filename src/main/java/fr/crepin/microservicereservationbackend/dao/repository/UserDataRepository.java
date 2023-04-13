@@ -1,6 +1,6 @@
-package fr.crepin.microserviceuserbackend.dao.repository;
+package fr.crepin.microservicereservationbackend.dao.repository;
 
-import fr.crepin.microserviceuserbackend.dao.entity.UserData;
+import fr.crepin.microservicereservationbackend.dao.entity.UserData;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

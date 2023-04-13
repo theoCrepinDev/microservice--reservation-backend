@@ -1,6 +1,6 @@
-package fr.crepin.microserviceuserbackend.dao.repository;
+package fr.crepin.microservicereservationbackend.dao.repository;
 
-import fr.crepin.microserviceuserbackend.dao.entity.UserRole;
+import fr.crepin.microservicereservationbackend.dao.entity.UserRole;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.UUID;
