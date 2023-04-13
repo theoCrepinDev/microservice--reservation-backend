@@ -4,6 +4,7 @@ import fr.crepin.microservicereservationbackend.converter.ReservationConverter;
 import fr.crepin.microservicereservationbackend.dao.entity.Reservation;
 import fr.crepin.microservicereservationbackend.dto.GetReservationLogementResponse;
 import fr.crepin.microservicereservationbackend.dto.PostReservationResponse;
+import fr.crepin.microservicereservationbackend.dto.PutReservationLogementResponse;
 import fr.crepin.microservicereservationbackend.dto.ReservationDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -14,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 import fr.crepin.microservicereservationbackend.service.ReservationService;
 
 import java.util.List;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/api")
@@ -44,6 +44,7 @@ public class ReservationController {
             return new ResponseEntity<>(GetReservationLogementResponse.builder()
                     .isValid(true)
                     .resevations(service.getLogementReservations(logementId).stream().map(ReservationConverter::reservationToReservationDtoConverter).toList())
+                    .message("Reservation updated successfully !")
                     .build(),HttpStatus.OK);
         }catch (Exception e){
             return new ResponseEntity<>(GetReservationLogementResponse.builder()
@@ -68,6 +69,62 @@ public class ReservationController {
                     .isValid(false)
                     .message("Exception caugth when saving reservation : \n" + e.getMessage() )
                     .build(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PutMapping("/reservations")
+    public ResponseEntity<PutReservationLogementResponse> putReservation(
+            @RequestBody ReservationDto reservationDto,
+            @RequestHeader(HttpHeaders.AUTHORIZATION) String language
+    ){
+        try{
+            return new ResponseEntity<>(
+                    PutReservationLogementResponse.builder()
+                            .isValid(true)
+                            .resevations(
+                                    ReservationConverter.reservationToReservationDtoConverter(
+                                            service.updateReservation(language.split(" ")[1], reservationDto)
+                                    )
+                            )
+                            .build(),
+                    HttpStatus.OK
+            );
+        }catch (Exception e) {
+            return new ResponseEntity<>(
+                    PutReservationLogementResponse.builder()
+                            .isValid(false)
+                            .message("Unable to update reservation \n" + e.getMessage())
+                            .build(),
+                    HttpStatus.BAD_REQUEST
+            );
+        }
+    }
+
+    @DeleteMapping("/reservations")
+    public ResponseEntity<PutReservationLogementResponse> deleteReservationById(
+            @RequestParam(name = "reservation-id") String reservationId,
+            @RequestHeader(HttpHeaders.AUTHORIZATION) String language
+    ){
+        try{
+            return new ResponseEntity<>(
+                    PutReservationLogementResponse.builder()
+                            .isValid(true)
+                            .resevations(
+                                    ReservationConverter.reservationToReservationDtoConverter(
+                                            service.deleteReservation(language.split(" ")[1], reservationId)
+                                    )
+                            )
+                            .build(),
+                    HttpStatus.OK
+            );
+        }catch (Exception e) {
+            return new ResponseEntity<>(
+                    PutReservationLogementResponse.builder()
+                            .isValid(false)
+                            .message("Unable to update reservation \n" + e.getMessage())
+                            .build(),
+                    HttpStatus.BAD_REQUEST
+            );
         }
     }
 }

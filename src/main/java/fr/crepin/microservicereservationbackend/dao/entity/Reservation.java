@@ -13,7 +13,7 @@ public class Reservation {
     @Id
     @GeneratedValue
     private UUID id;
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinColumn(name = "id_user")
     private UserData user;
     @Column(name = "id_logement")

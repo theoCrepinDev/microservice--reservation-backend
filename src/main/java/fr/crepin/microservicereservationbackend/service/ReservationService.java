@@ -10,4 +10,6 @@ public interface ReservationService {
     List<Reservation> getAllReservations();
     Reservation postReservation(ReservationDto reservationDto);
     List<Reservation> getLogementReservations(String logementId);
+    Reservation updateReservation(String token, ReservationDto reservationDto);
+    Reservation deleteReservation(String token, String idReservation);
 }

@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -47,5 +49,34 @@ public class ReservationServiceImpl implements ReservationService{
     @Override
     public List<Reservation> getLogementReservations(String logementId){
         return repository.findReservationByLogement(UUID.fromString(logementId));
+    }
+
+    @Override
+    public Reservation updateReservation(String token, ReservationDto reservationDto){
+        String username = jwtService.extractUsernameOrEmail(token);
+        Reservation oldReservation = getReservationCheckedUser(reservationDto.getId(), username);
+        var newReservation = ReservationConverter.reservationDtoToReservationConverter(reservationDto);
+        newReservation.setUser(oldReservation.getUser());
+        return repository.save(newReservation);
+    }
+
+    @Override
+    public Reservation deleteReservation(String token, String idReservation) {
+        String username = jwtService.extractUsernameOrEmail(token);
+        Reservation oldReservation = getReservationCheckedUser(idReservation, username);
+        repository.delete(oldReservation);
+        return oldReservation;
+    }
+
+    private Reservation getReservationCheckedUser(String idReservation, String username) {
+        Optional<Reservation> oldReservationOpt = repository.findById(UUID.fromString(idReservation));
+        if(oldReservationOpt.isEmpty()){
+            throw new IllegalArgumentException("Reservation non trouvée");
+        }
+        var oldReservation = oldReservationOpt.get();
+        if(!Objects.equals(oldReservation.getUser().getUsername(), username) && !Objects.equals(oldReservation.getUser().getEmail(), username)){
+            throw new IllegalArgumentException("Resernvation not associated to this user");
+        }
+        return oldReservation;
     }
 }
