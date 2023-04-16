@@ -44,7 +44,6 @@ public class ReservationController {
             return new ResponseEntity<>(GetReservationLogementResponse.builder()
                     .isValid(true)
                     .resevations(service.getLogementReservations(logementId).stream().map(ReservationConverter::reservationToReservationDtoConverter).toList())
-                    .message("Reservation updated successfully !")
                     .build(),HttpStatus.OK);
         }catch (Exception e){
             return new ResponseEntity<>(GetReservationLogementResponse.builder()
@@ -53,6 +52,7 @@ public class ReservationController {
                     .build(), HttpStatus.BAD_REQUEST);
         }
     }
+
 
     @PostMapping("/reservations")
     public ResponseEntity<PostReservationResponse> postReservation(
